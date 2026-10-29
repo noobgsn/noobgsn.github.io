@@ -1,0 +1,23 @@
+<!DOCTYPE html><meta charset="utf-8"><title>Admin</title><meta name="viewport" content="width=device-width,initial-scale=1">
+<body style="font-family:sans-serif;background:#080D16;color:#F1F4F8;max-width:560px;margin:40px auto;padding:0 20px">
+<h2>Access code generator</h2><p style="color:#8496AA">Private. Never upload this file to GitHub.</p>
+<button id="g" style="padding:12px 20px;font-size:1rem">Generate code</button>
+<p>1. Send this code to the user:</p><pre id="c" style="font-size:1.3rem;color:#D8B26C">-</pre>
+<p>2. In index.html on GitHub, search for CODES and paste this entry inside the [ ] (comma between entries). Delete an entry to revoke its code (runner notices in about a minute).</p>
+<textarea id="e" rows="6" style="width:100%" readonly></textarea>
+<script>
+var SALT="KRJo8GeBfVU6eq8BR7uEUg==",M="c4kCY5mjb1iVoAzoLsLpugEcSPbSTNZ1bqN5giDbVRw=",A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+var u8=function(b){return Uint8Array.from(atob(b),function(c){return c.charCodeAt(0)})};
+var b64=function(a){return btoa(String.fromCharCode.apply(null,new Uint8Array(a)))};
+document.getElementById("g").onclick=async function(){
+var r=crypto.getRandomValues(new Uint8Array(16)),s="";for(var i=0;i<16;i++){s+=A[r[i]%32];if(i%4==3&&i<15)s+="-"}
+var k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(s),"PBKDF2",false,["deriveBits"]);
+var raw=await crypto.subtle.deriveBits({name:"PBKDF2",salt:u8(SALT),iterations:200000,hash:"SHA-256"},k0,256);
+var k=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["encrypt"]);
+var iv=crypto.getRandomValues(new Uint8Array(12));
+var ct=await crypto.subtle.encrypt({name:"AES-GCM",iv:iv},k,u8(M));
+var pre=new TextEncoder().encode("auth"),buf=new Uint8Array(pre.length+32);buf.set(pre);buf.set(new Uint8Array(raw),pre.length);
+var v=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",buf))).map(function(x){return x.toString(16).padStart(2,"0")}).join("");
+document.getElementById("c").textContent=s;
+document.getElementById("e").value=JSON.stringify({iv:b64(iv),ct:b64(ct),v:v})};
+</script>

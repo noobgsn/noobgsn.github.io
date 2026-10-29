@@ -163,7 +163,18 @@ textarea{min-height:110px;resize:vertical;line-height:1.55}
   .up{opacity:1}.rv{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
-</style>
+
+.auto{margin:70px 0 0}
+.auto h2{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.55rem;margin:0 0 6px;text-align:center;color:#F4F7FA}
+.auto .sub{text-align:center;color:var(--dim);font-size:.94rem;margin:0 0 26px}
+.box{background-color:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:22px}
+.box h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.25rem;margin:0 0 16px;color:#F4F7FA}
+.drop{display:block;margin:0;border:1px dashed var(--line2);border-radius:14px;padding:46px 16px;text-align:center;color:var(--dim);cursor:pointer;font-size:1rem;background-color:#0A1120}
+.ctl{display:flex;gap:14px;margin-top:22px}
+.ic{flex:1;height:54px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line2);background-color:#0A1120}
+.ic svg{width:22px;height:22px}.ic.go svg{fill:var(--gold)}.ic.st svg{fill:#E88B74}
+.ic:hover{border-color:var(--gold2)}
+.log{margin:16px 0 0;padding:12px;max-height:190px;overflow:auto;white-space:pre-wrap;word-break:break-word;background-color:#0A1120;border:1px solid var(--line2);border-radius:12px;color:#9FB2C6;font:12px/1.5 Consolas,Menlo,monospace}.log:empty{display:none}</style>
 </head>
 <body>
 
@@ -216,6 +227,21 @@ textarea{min-height:110px;resize:vertical;line-height:1.55}
       <p>Message me any time.</p>
       <span class="tgwrap"><a class="tg" href="https://t.me/noobgsn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="0" y="0" width="24" height="24" fill="#0E1626"/><g><path d="M3 12 L21 4 L15.5 20.5 L11.5 13.5 Z" fill="none" stroke="#D8B26C" stroke-width="1.5" stroke-linejoin="round"/><path d="M11.5 13.5 L21 4" fill="none" stroke="#D8B26C" stroke-width="1.5"/><animateTransform attributeName="transform" type="translate" values="0 0;2 -2;0 0" dur="3.8s" repeatCount="indefinite"/></g></svg>Telegram — noobgsn</a></span>
     </div></div>
+    <div class="auto">
+      <h2>Automation</h2>
+      <p class="sub">Request access, or unlock with your code.</p>
+      <div class="box">
+        <label for="rqT">Telegram</label><input type="text" id="rqT" placeholder="@username" autocomplete="off">
+        <label for="rqR">Reason for access</label><textarea id="rqR" placeholder="What will you use it for?"></textarea>
+        <button class="send" id="rqB">Request code</button><p class="msg" id="rqM"></p>
+      </div>
+      <div class="box">
+        <label for="acC">Automation Access</label><input type="text" id="acC" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off">
+        <button class="send" id="acB">Unlock</button><p class="msg" id="acM"></p>
+      </div>
+      <div id="panelMount"></div>
+    </div>
+
 
   </div>
   <footer>
@@ -413,5 +439,41 @@ var TG_HANDLE  = "noobgsn";
 })();
 </script>
 
+<script>
+/* ===== CONFIG: the only two things you ever edit on GitHub ===== */
+var RUNNER_URL = "";
+var CODES = /*CODES*/[{"iv": "26eqg/EvUfSD8u+J", "ct": "xY9KsASeBtwYf2LQOe4OkZu6j4zjxh1gcnfe0uMyfQ1AhG6v61FM6ssLh6zg0GKG", "v": "3e0ed8368756544d2a5863282c649e2b1960b80d3fa5b67ef11e1dac23febd4b"}]/*END*/;
+/* ===== END CONFIG ===== */
+</script>
+<script>
+(function(){
+var SALT="KRJo8GeBfVU6eq8BR7uEUg==",PANEL={"iv": "lbIIlKRcu7cKgY0e", "ct": "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"};
+var $=function(i){return document.getElementById(i)};
+function m(id,t,k){var e=$(id);e.textContent=t;e.className="msg on "+k}
+function u8(b){return Uint8Array.from(atob(b),function(c){return c.charCodeAt(0)})}
+async function unwrap(code,W){
+var k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(code),"PBKDF2",false,["deriveKey"]);
+var w=await crypto.subtle.deriveKey({name:"PBKDF2",salt:u8(SALT),iterations:200000,hash:"SHA-256"},k0,{name:"AES-GCM",length:256},false,["decrypt"]);
+var M=null;for(var i=0;i<W.length;i++){try{M=await crypto.subtle.decrypt({name:"AES-GCM",iv:u8(W[i].iv)},w,u8(W[i].ct));break}catch(e){}}
+if(!M)return null;
+var mk=await crypto.subtle.importKey("raw",M,"AES-GCM",false,["decrypt"]);
+var p=await crypto.subtle.decrypt({name:"AES-GCM",iv:u8(PANEL.iv)},mk,u8(PANEL.ct));
+return JSON.parse(new TextDecoder().decode(p))}
+$("rqB").onclick=async function(){var b=this,t=$("rqT").value.trim(),r=$("rqR").value.trim();
+if(!t){m("rqM","Add your Telegram username.","bad");return}
+if(r.length<10){m("rqM","Tell me why you need access.","bad");return}
+if(t[0]!=="@")t="@"+t;b.disabled=true;m("rqM","Sending...","ok");
+try{var x=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:ACCESS_KEY,subject:"Automation access request - "+t,from_name:"noobgsn.com",telegram:t,reason:r})});
+var d=await x.json();m("rqM",d.success?"Sent. I will message you on Telegram.":"Could not send. Try again.",d.success?"ok":"bad")}catch(e){m("rqM","Network error.","bad")}
+b.disabled=false};
+$("acB").onclick=async function(){var b=this,c=$("acC").value.trim().toUpperCase();
+if(!c){m("acM","Enter your code.","bad");return}
+b.disabled=true;m("acM","Checking...","ok");
+try{var W=CODES;var P=await unwrap(c,W);
+if(!P){m("acM","Invalid code.","bad")}else{$("acM").className="msg";$("panelMount").innerHTML=P.html;new Function("code",P.js)(c);$("acC").value=""}}
+catch(e){m("acM","Could not verify. Try again.","bad")}
+b.disabled=false};
+})();
+</script>
 </body>
 </html>
